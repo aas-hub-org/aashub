@@ -1,0 +1,36 @@
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/go:1-1.22-bookworm
+    container_name: app
+    volumes:
+      - .:/workspace:cached
+    command: /bin/sh -c "cd /workspace/cmd/movie-api && go run main.go"
+    ports:
+      - 9000:9000
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9000/health > /proc/1/fd/1 2>/proc/1/fd/2 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:lts
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: moviesdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysql-data:
