@@ -1,6 +1,7 @@
 // Plugins
 import Components from 'unplugin-vue-components/vite'
 import Vue from '@vitejs/plugin-vue'
+import eslintPlugin from 'vite-plugin-eslint';
 import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import ViteFonts from 'unplugin-fonts/vite'
 
@@ -13,6 +14,10 @@ export default defineConfig({
   plugins: [
     Vue({
       template: { transformAssetUrls },
+    }),
+    eslintPlugin({
+      // Optional: specify the path to the ESLint configuration file
+      include: ['./src/**/*.js', './src/**/*.vue', './src/**/*.ts'] // Adjust according to your project structure
     }),
     // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
     Vuetify(),

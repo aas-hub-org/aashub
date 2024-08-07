@@ -18,5 +18,20 @@
         "editor.insertSpaces": true,
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "golang.go"
-    }
+    },
+    "[vue]": {
+        "editor.insertSpaces": true,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.insertSpaces": true,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.insertSpaces": true,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
 }

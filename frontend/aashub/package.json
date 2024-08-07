@@ -4,7 +4,9 @@
     "scripts": {
         "dev": "vite",
         "build": "vue-tsc --noEmit && vite build",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "lint:check": "eslint ./",
+        "lint:fix": "eslint --fix ./"
     },
     "dependencies": {
         "@mdi/font": "7.4.47",
@@ -14,13 +16,23 @@
     },
     "devDependencies": {
         "@babel/types": "^7.24.7",
+        "@eslint/eslintrc": "^3.1.0",
+        "@eslint/js": "^9.8.0",
         "@types/node": "^20.14.10",
         "@vitejs/plugin-vue": "^5.0.5",
+        "@vue/eslint-config-prettier": "^9.0.0",
+        "@vue/eslint-config-typescript": "^13.0.0",
+        "eslint": "^9.8.0",
+        "eslint-plugin-oxlint": "^0.5.0",
+        "eslint-plugin-vue": "^9.27.0",
+        "globals": "^15.9.0",
+        "prettier": "^3.3.3",
         "sass": "1.77.6",
         "typescript": "^5.4.2",
         "unplugin-fonts": "^1.1.1",
         "unplugin-vue-components": "^0.27.2",
         "vite": "^5.3.3",
+        "vite-plugin-eslint": "^1.8.1",
         "vite-plugin-vuetify": "^2.0.3",
         "vue-tsc": "^2.0.26"
     }
