@@ -9,6 +9,16 @@
             "program": "${workspaceFolder}/backend/aashub/main.go",
             "env": {},
             "args": []
+        },
+        {
+            "name": "Launch Vue 3 App",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "yarn",
+            "runtimeArgs": ["dev", "--host"],
+            "cwd": "${workspaceFolder}/frontend/aashub",
+            "env": {},
+            "args": []
         }
     ]
 }
