@@ -13,13 +13,6 @@
             }
         },
         {
-            "files": "*.go",
-            "options": {
-                "parser": "go",
-                "tabWidth": 4
-            }
-        },
-        {
             "files": "*.vue",
             "options": {
                 "parser": "vue"

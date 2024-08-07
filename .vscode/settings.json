@@ -1,4 +1,19 @@
 {
+    "[json]": {
+        "editor.insertSpaces": true,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[yaml]": {
+        "editor.insertSpaces": true,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[sql]": {
+        "editor.insertSpaces": true,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "adpyke.vscode-sql-formatter"
+    },
     "[go]": {
         "editor.insertSpaces": true,
         "editor.formatOnSave": true,
