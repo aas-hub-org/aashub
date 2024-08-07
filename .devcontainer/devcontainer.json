@@ -21,7 +21,8 @@
                 "GitHub.vscode-github-actions",
                 "msyrus.go-doc",
                 "ms-azuretools.vscode-docker",
-                "ms-vsliveshare.vsliveshare"
+                "ms-vsliveshare.vsliveshare",
+                "actboy168.tasks"
             ]
         }
     },

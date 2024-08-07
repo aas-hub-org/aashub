@@ -1,0 +1,40 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start AAS Hub frontend",
+            "type": "shell",
+            "command": "yarn",
+            "args": [
+                "dev",
+                "--host"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/frontend/aashub"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "detail": "Start the Vue 3 Vite development server"
+        },
+        {
+            "label": "Install dependencies",
+            "type": "shell",
+            "command": "yarn",
+            "args": [
+                "install"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/frontend/aashub"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [],
+            "detail": "Install dependencies for the Vue 3 Vite project"
+        }
+    ]
+}
