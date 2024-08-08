@@ -1,6 +1,5 @@
 name: Code Formatting
 
-# This action works with pull requests and pushes on the main branch
 on:
   pull_request:
   push:
@@ -14,17 +13,26 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts'
+
+      - name: Install Prettier
+        run: |
+          npm install --global prettier@latest
+          npm install --global prettier-plugin-vue
+
       - name: Run Prettier
         id: prettier-run
-        uses: rutajdash/prettier-cli-action@v1.0.2
-        with:
-          config_path: ./.prettierrc
+        run: |
+          echo "prettier-output<<EOF" >> $GITHUB_ENV
+          prettier --list-different --config ./.prettierrc --ignore-path ./.prettierignore **/*.ts **/*.vue **/*.json **/*.js | tee -a $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
-      # This step only runs if prettier finds errors causing the previous step to fail
-      # This steps lists the files where errors were found
       - name: Prettier Output
         if: ${{ failure() }}
         shell: bash
         run: |
           echo "The following files are not formatted:"
-          echo "${{steps.prettier-run.outputs.prettier_output}}"
+          echo "${{ env.prettier-output }}"
