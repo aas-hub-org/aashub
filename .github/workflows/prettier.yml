@@ -27,7 +27,7 @@ jobs:
         id: prettier-run
         run: |
           echo "prettier-output<<EOF" >> $GITHUB_ENV
-          prettier --list-different --config ./.prettierrc --ignore-path ./.prettierignore **/*.ts **/*.vue **/*.json **/*.js | tee -a $GITHUB_ENV
+          prettier --list-different --config ./.prettierrc --ignore-path ./.prettierignore --no-error-on-unmatched-pattern **/*.ts **/*.vue **/*.json **/*.js | tee -a $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Prettier Output
