@@ -52,6 +52,25 @@
             },
             "problemMatcher": [],
             "detail": "Lint the Vue 3 Vite project"
+        },
+        {
+            "label": "Check code formatting",
+            "type": "shell",
+            "command": "npx",
+            "args": [
+                "prettier",
+                "--check",
+                "\"**/*.{ts,vue,json,js}\""
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            },
+            "problemMatcher": [],
+            "detail": "Check code formatting using Prettier"
         }
     ]
 }

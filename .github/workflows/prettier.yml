@@ -26,9 +26,10 @@ jobs:
       - name: Run Prettier
         id: prettier-run
         run: |
-          echo "prettier-output<<EOF" >> $GITHUB_ENV
-          prettier --check --config ./.prettierrc --ignore-path ./.prettierignore --no-error-on-unmatched-pattern **/*.ts **/*.vue **/*.json **/*.js | tee -a $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          if ! prettier --check --config ./.prettierrc --ignore-path ./.prettierignore --no-error-on-unmatched-pattern **/*.ts **/*.vue **/*.json **/*.js; then
+            echo "Formatting issues found"
+            exit 1
+          fi
 
       - name: Prettier Output
         if: ${{ failure() }}
