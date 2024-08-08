@@ -5,10 +5,7 @@
             "label": "Start AAS Hub frontend",
             "type": "shell",
             "command": "yarn",
-            "args": [
-                "dev",
-                "--host"
-            ],
+            "args": ["dev", "--host"],
             "options": {
                 "cwd": "${workspaceFolder}/frontend/aashub"
             },
@@ -23,9 +20,7 @@
             "label": "Install dependencies",
             "type": "shell",
             "command": "yarn",
-            "args": [
-                "install"
-            ],
+            "args": ["install"],
             "options": {
                 "cwd": "${workspaceFolder}/frontend/aashub"
             },
@@ -40,9 +35,7 @@
             "label": "Lint AAS Hub frontend",
             "type": "shell",
             "command": "yarn",
-            "args": [
-                "lint:check"
-            ],
+            "args": ["lint:check"],
             "options": {
                 "cwd": "${workspaceFolder}/frontend/aashub"
             },
@@ -57,11 +50,7 @@
             "label": "Check code formatting",
             "type": "shell",
             "command": "npx",
-            "args": [
-                "prettier",
-                "--check",
-                "\"**/*.{ts,vue,json,js}\""
-            ],
+            "args": ["prettier", "--check", "\"**/*.{ts,vue,json,js}\""],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
@@ -71,6 +60,21 @@
             },
             "problemMatcher": [],
             "detail": "Check code formatting using Prettier"
+        },
+        {
+            "label": "Fix code formatting",
+            "type": "shell",
+            "command": "npx",
+            "args": ["prettier", "--write", "\"**/*.{ts,vue,json,js}\""],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [],
+            "detail": "Fix code formatting using Prettier"
         }
     ]
 }

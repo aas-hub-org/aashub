@@ -6,8 +6,8 @@
       <div class="text-center">
         <div class="text-body-2 font-weight-light mb-n1">Welcome to the</div>
 
-          <h1 class="text-h2 font-weight-bold">AAS Hub</h1>
-        </div>
+        <h1 class="text-h2 font-weight-bold">AAS Hub</h1>
+      </div>
 
       <div class="py-4" />
 
@@ -16,7 +16,7 @@
           <v-card
             class="py-4"
             color="surface-variant"
-              image="https://cdn.vuetifyjs.com/docs/images/one/create/feature.png"
+            image="https://cdn.vuetifyjs.com/docs/images/one/create/feature.png"
             prepend-icon="mdi-rocket-launch-outline"
             rounded="lg"
             variant="outlined"
@@ -47,7 +47,8 @@
             color="surface-variant"
             href="https://vuetifyjs.com/"
             prepend-icon="mdi-text-box-outline"
-            rel="noopener noreferrer" rounded="lg"
+            rel="noopener noreferrer"
+            rounded="lg"
             subtitle="Learn about all things Vuetify in our documentation."
             target="_blank"
             title="Documentation"
@@ -93,23 +94,23 @@
           </v-card>
         </v-col>
 
-          <v-col cols="6">
-            <v-card
-              append-icon="mdi-open-in-new"
-              class="py-4"
-              color="surface-variant"
-              href="https://discord.vuetifyjs.com"
-              prepend-icon="mdi-account-group-outline"
-              rel="noopener noreferrer"
-              rounded="lg"
-              subtitle="Connect with Vuetify developers."
-              target="_blank"
-              title="Community"
-              variant="text"
-            >
-              <v-overlay opacity=".06" scrim="primary" contained model-value persistent />
-            </v-card>
-          </v-col>
+        <v-col cols="6">
+          <v-card
+            append-icon="mdi-open-in-new"
+            class="py-4"
+            color="surface-variant"
+            href="https://discord.vuetifyjs.com"
+            prepend-icon="mdi-account-group-outline"
+            rel="noopener noreferrer"
+            rounded="lg"
+            subtitle="Connect with Vuetify developers."
+            target="_blank"
+            title="Community"
+            variant="text"
+          >
+            <v-overlay opacity=".06" scrim="primary" contained model-value persistent />
+          </v-card>
+        </v-col>
       </v-row>
     </v-responsive>
   </v-container>
