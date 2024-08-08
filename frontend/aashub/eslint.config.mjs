@@ -12,17 +12,15 @@ const compat = new FlatCompat({ baseDirectory: __dirname });
 
 export default [
   {
-    // config with just ignores is the replacement for `.eslintignore`
     ignores: ['{dist,public}/**/*'],
   },
   ESLint.configs.recommended,
   ...Vue.configs['flat/recommended'],
-  // uncomment next line for TypeScript project
   ...compat.extends('@vue/eslint-config-typescript/recommended'),
   Oxlint.configs['flat/recommended'],
   ...compat.extends('@vue/eslint-config-prettier/skip-formatting'),
   {
-    files: ['**/*.{js,mjs,cjs,jsx,vue,ts,mts,cts,tsx}'], // append `ts,mts,cts,tsx` for TypeScript project
+    files: ['**/*.{js,mjs,cjs,jsx,vue,ts,mts,cts,tsx}'],
     linterOptions: {
       reportUnusedDisableDirectives: true,
     },
