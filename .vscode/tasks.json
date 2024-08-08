@@ -47,6 +47,21 @@
             "detail": "Lint the Vue 3 Vite project"
         },
         {
+            "label": "Fix lint issues in AAS Hub frontend",
+            "type": "shell",
+            "command": "yarn",
+            "args": ["lint:fix"],
+            "options": {
+                "cwd": "${workspaceFolder}/frontend/aashub"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            },
+            "problemMatcher": [],
+            "detail": "Fix lint issues in the Vue 3 Vite project"
+        },
+        {
             "label": "Check code formatting",
             "type": "shell",
             "command": "npx",

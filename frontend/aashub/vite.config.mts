@@ -1,13 +1,12 @@
 // Plugins
-import Components from 'unplugin-vue-components/vite';
 import Vue from '@vitejs/plugin-vue';
-import eslintPlugin from 'vite-plugin-eslint';
-import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
+import { fileURLToPath, URL } from 'node:url';
 import ViteFonts from 'unplugin-fonts/vite';
-
+import Components from 'unplugin-vue-components/vite';
 // Utilities
 import { defineConfig } from 'vite';
-import { fileURLToPath, URL } from 'node:url';
+import eslintPlugin from 'vite-plugin-eslint';
+import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 
 // https://vitejs.dev/config/
 export default defineConfig({

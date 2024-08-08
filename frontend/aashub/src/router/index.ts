@@ -6,7 +6,6 @@
 
 // Composables
 import { createRouter, createWebHistory } from 'vue-router';
-
 // Views
 import HelloWorld from '@/pages/HelloWorld.vue';
 
