@@ -1,4 +1,6 @@
 import js from '@eslint/js';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import prettier from 'eslint-plugin-prettier';
 import pluginPromise from 'eslint-plugin-promise';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import vue from 'eslint-plugin-vue';
@@ -73,4 +75,17 @@ export default [
 
   // Promise
   pluginPromise.configs['flat/recommended'],
+
+  // Prettier
+  {
+    plugins: {
+      prettier,
+    },
+    rules: {
+      'prettier/prettier': 'error',
+    },
+  },
+
+  // Disable rules that conflict with Prettier
+  eslintConfigPrettier,
 ];
