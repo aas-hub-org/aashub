@@ -2,8 +2,12 @@ name: Build Frontend
 
 on:
   pull_request:
+    paths:
+      - 'frontend/aashub/**'
   push:
     branches: [main]
+    paths:
+      - 'frontend/aashub/**'
 
 jobs:
   build:
