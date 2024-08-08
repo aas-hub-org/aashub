@@ -1,0 +1,36 @@
+name: Go Formatting
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/aashub/**.go'
+
+jobs:
+  gofmt:
+    name: GoFmt Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.22.5'
+
+      - name: Run GoFmt
+        id: gofmt-run
+        run: |
+          if ! gofmt -d backend/aashub/ > gofmt_output.txt; then
+            echo "Formatting issues found"
+            cat gofmt_output.txt
+            exit 1
+          fi
+
+      - name: GoFmt Output
+        if: ${{ failure() }}
+        run: |
+          echo "The following files are not formatted:"
+          cat gofmt_output.txt

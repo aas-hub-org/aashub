@@ -17,7 +17,7 @@
             "detail": "Start the Vue 3 Vite development server"
         },
         {
-            "label": "Install dependencies",
+            "label": "Install/Update frontend dependencies",
             "type": "shell",
             "command": "yarn",
             "args": ["install"],
