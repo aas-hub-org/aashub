@@ -2,10 +2,12 @@ name: Go Formatting
 
 on:
   pull_request:
+    paths:
+      - 'backend/aashub/**'
   push:
     branches: [main]
     paths:
-      - 'backend/aashub/**.go'
+      - 'backend/aashub/**'
 
 jobs:
   gofmt:
