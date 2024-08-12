@@ -15,19 +15,16 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/example/helloworld": {
+        "/health": {
             "get": {
-                "description": "do ping",
-                "consumes": [
-                    "application/json"
-                ],
+                "description": "Responds with OK if the service is up and running",
                 "produces": [
-                    "application/json"
+                    "text/plain"
                 ],
                 "tags": [
-                    "example"
+                    "health"
                 ],
-                "summary": "ping example",
+                "summary": "Health Check",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -38,7 +35,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/login": {
+        "/users/login": {
             "post": {
                 "description": "Logs in a user by identifier (username or email) and password, sets a cookie with a JWT token if successful, and returns the JWT token in the response.",
                 "consumes": [

@@ -12,22 +12,20 @@ definitions:
 info:
   contact: {}
 paths:
-  /example/helloworld:
+  /health:
     get:
-      consumes:
-      - application/json
-      description: do ping
+      description: Responds with OK if the service is up and running
       produces:
-      - application/json
+      - text/plain
       responses:
         "200":
           description: OK
           schema:
             type: string
-      summary: ping example
+      summary: Health Check
       tags:
-      - example
-  /login:
+      - health
+  /users/login:
     post:
       consumes:
       - multipart/form-data
