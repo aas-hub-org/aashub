@@ -1,4 +1,14 @@
 basePath: /api/v1
+definitions:
+  api_handler.APIUser:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -17,4 +27,113 @@ paths:
       summary: ping example
       tags:
       - example
+  /login:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Logs in a user by identifier (username or email) and password,
+        sets a cookie with a JWT token if successful, and returns the JWT token in
+        the response.
+      parameters:
+      - description: Username or Email
+        in: formData
+        name: identifier
+        required: true
+        type: string
+      - description: Password
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Successfully logged in
+        "400":
+          description: Missing required field(s) or bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: User not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: User login and set cookie
+      tags:
+      - users
+  /users/register:
+    post:
+      consumes:
+      - application/json
+      description: Registers a new user with the provided username, email, and password.
+      parameters:
+      - description: User to register
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/api_handler.APIUser'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Successfully registered the user
+          schema:
+            type: string
+        "400":
+          description: Invalid request parameters
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Register a new user
+      tags:
+      - users
+  /verify:
+    get:
+      consumes:
+      - application/json
+      description: Verifies a user using base64 URL encoded email and verification
+        code.
+      parameters:
+      - description: Base64 URL Encoded Email
+        in: query
+        name: email
+        required: true
+        type: string
+      - description: Base64 URL Encoded Verification Code
+        in: query
+        name: code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User verified successfully
+          schema:
+            type: string
+        "400":
+          description: Invalid email or code
+          schema:
+            type: string
+        "500":
+          description: Verification failed
+          schema:
+            type: string
+      summary: Verify user
+      tags:
+      - verification
 swagger: "2.0"
