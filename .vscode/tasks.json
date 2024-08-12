@@ -90,6 +90,21 @@
             },
             "problemMatcher": [],
             "detail": "Fix code formatting using Prettier"
+        },
+        {
+            "label": "Build Go Docs",
+            "type": "shell",
+            "command": "swag",
+            "args": ["init", "-g", "cmd/aashub/main.go", "--parseDependency", "--parseInternal", "-o", "docs"],
+            "options": {
+                "cwd": "${workspaceFolder}/backend/aashub"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [],
+            "detail": "Build Go documentation using Swag"
         }
     ]
 }
