@@ -111,7 +111,7 @@ func (h *VerificationHandler) VerifyUser(w http.ResponseWriter, r *http.Request)
 // @Failure 400 {object} map[string]string "Missing required field(s) or bad request"
 // @Failure 404 {object} map[string]string "User not found"
 // @Failure 500 {object} map[string]string "Internal Server Error"
-// @Router /login [post]
+// @Router /users/login [post]
 func (h *UserHandler) LoginUser(w http.ResponseWriter, r *http.Request) {
 	// Parse form data
 	err := r.ParseMultipartForm(32 << 20)
