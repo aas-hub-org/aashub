@@ -4,7 +4,7 @@ services:
     container_name: app
     volumes:
       - ../:/workspace:cached
-    command: /bin/sh -c "cd /workspace/cmd/movie-api && go run main.go"
+    command: /bin/sh -c "cd /workspace/backend/aashub/cmd/aashub && go run main.go"
     ports:
       - 9000:9000
     healthcheck:
