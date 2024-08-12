@@ -18,17 +18,15 @@ import (
 
 // @BasePath /api/v1
 
-// PingExample godoc
-// @Summary ping example
-// @Schemes
-// @Description do ping
-// @Tags example
-// @Accept json
-// @Produce json
-// @Success 200 {string} Helloworld
-// @Router /example/helloworld [get]
-func Helloworld(g *gin.Context) {
-	g.JSON(http.StatusOK, "helloworld")
+// Health godoc
+// @Summary Health Check
+// @Description Responds with OK if the service is up and running
+// @Tags health
+// @Produce plain
+// @Success 200 {string} string "OK"
+// @Router /health [get]
+func Health(g *gin.Context) {
+	g.JSON(http.StatusOK, "OK")
 }
 
 func main() {
@@ -63,10 +61,6 @@ func main() {
 	docs.SwaggerInfo.BasePath = "/api/v1"
 	v1 := r.Group("/api/v1")
 	{
-		eg := v1.Group("/example")
-		{
-			eg.GET("/helloworld", Helloworld)
-		}
 		ug := v1.Group("/users")
 		{
 			ug.POST("/register", gin.WrapF(userHandler.RegisterUser))
@@ -78,5 +72,6 @@ func main() {
 		}
 	}
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	r.GET("/health", Health)
 	r.Run(":9000")
 }
