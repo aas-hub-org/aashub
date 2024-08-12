@@ -26,7 +26,7 @@ import (
 // @Success 200 {string} string "OK"
 // @Router /health [get]
 func Health(g *gin.Context) {
-	g.JSON(http.StatusOK, "OK")
+	g.JSON(http.StatusOK, "healthy")
 }
 
 func main() {
