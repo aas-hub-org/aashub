@@ -6,7 +6,7 @@
             "type": "go",
             "request": "launch",
             "mode": "debug",
-            "program": "${workspaceFolder}/backend/aashub/main.go",
+            "program": "${workspaceFolder}/backend/aashub/cmd/aashub/main.go",
             "env": {},
             "args": []
         }

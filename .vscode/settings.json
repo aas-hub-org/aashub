@@ -1,4 +1,6 @@
 {
+    "go.buildFlags": ["-tags=unit,integration"],
+    "go.testFlags": ["-tags=unit,integration"],
     "[json]": {
         "editor.insertSpaces": true,
         "editor.formatOnSave": true,

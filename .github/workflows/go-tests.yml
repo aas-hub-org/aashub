@@ -1,0 +1,52 @@
+name: Go Application Tests
+
+on:
+  pull_request:
+    paths:
+      - 'backend/aashub/**'
+  push:
+    branches: [main]
+    paths:
+      - 'backend/aashub/**'
+
+jobs:
+  unit-tests:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+      - name: Get dependencies
+        working-directory: backend/aashub
+        run: go mod download
+      - name: Run unit tests
+        run: go test ./... -v -tags=unit
+        working-directory: backend/aashub
+
+  integration-tests:
+    name: Run Integration Tests
+    needs: unit-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Set up Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+      - name: Start all services with Docker Compose
+        run: docker-compose -f ci/docker-compose.yml up -d
+      - name: Wait for services to be ready
+        run: |
+          until [ "$(docker inspect --format='{{.State.Health.Status}}' app)" == "healthy" ]; do
+            echo "Current health status: $(docker inspect --format='{{.State.Health.Status}}' app)"
+            sleep 5
+          done
+      - name: Run integration tests
+        run: docker exec app /bin/sh -c "cd /workspace/backend/aashub && go test ./... -tags=integration"
+      - name: Shutdown services
+        run: docker-compose -f ci/docker-compose.yml down
