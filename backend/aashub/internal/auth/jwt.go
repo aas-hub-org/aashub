@@ -3,13 +3,13 @@ package auth
 import (
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v5"
 )
 
 // Define a struct to hold your payload. You can add more fields as needed.
 type CustomClaims struct {
 	Payload string `json:"payload"`
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 }
 
 // Function to generate a JWT token with a string payload
@@ -17,11 +17,11 @@ func GenerateJWT(payload string, secretKey string) (string, error) {
 	// Set expiration time for the token
 	expirationTime := time.Now().Add(24 * time.Hour)
 
-	// Create the claims with the payload and standard claims
+	// Create the claims with the payload and registered claims
 	claims := CustomClaims{
 		Payload: payload,
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: expirationTime.Unix(),
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(expirationTime),
 		},
 	}
 
@@ -37,9 +37,9 @@ func GenerateJWT(payload string, secretKey string) (string, error) {
 	return tokenString, nil
 }
 
-func IsTokenValid(token string, secretkey string) (bool, error) {
-	_, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
-		return []byte(secretkey), nil
+func IsTokenValid(tokenString string, secretKey string) (bool, error) {
+	_, err := jwt.ParseWithClaims(tokenString, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(secretKey), nil
 	})
 	if err != nil {
 		return false, err
