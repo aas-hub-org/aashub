@@ -12,7 +12,7 @@
         "@mdi/font": "7.4.47",
         "roboto-fontface": "*",
         "vue": "^3.4.37",
-        "vuetify": "^3.6.11"
+        "vuetify": "^3.7.0"
     },
     "devDependencies": {
         "@babel/types": "^7.24.7",
