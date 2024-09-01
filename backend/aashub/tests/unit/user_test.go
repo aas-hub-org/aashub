@@ -45,6 +45,10 @@ func (m *MockRepository) Verify(email, code string) (string, error) {
 	return "", nil
 }
 
+func (m *MockRepository) IsVerified(email string) (bool, error) {
+	return true, nil
+}
+
 func TestRegisterUser_Success(t *testing.T) {
 	mockRepo := &MockRepository{}
 	handler := api.UserHandler{Repo: mockRepo}
@@ -129,13 +133,13 @@ func TestVerifyUser_Success(t *testing.T) {
 
 	// Check the status code is what we expect.
 	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusOK)
+		t.Fatalf("handler returned wrong status code: got %v want %v", status, http.StatusOK)
 	}
 
 	// Check the response body is what we expect.
 	expected := "User verified successfully"
 	if rr.Body.String() != expected {
-		t.Errorf("handler returned unexpected body: got %v want %v", rr.Body.String(), expected)
+		t.Fatalf("handler returned unexpected body: got %v want %v", rr.Body.String(), expected)
 	}
 }
 
@@ -168,7 +172,7 @@ func TestVerifyUser_Failure(t *testing.T) {
 
 	// Check the status code is what we expect for failure.
 	if status := rr.Code; status != http.StatusBadRequest {
-		t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusBadRequest)
+		t.Fatalf("handler returned wrong status code: got %v want %v", status, http.StatusBadRequest)
 	}
 
 	// Check the response body is what we expect for failure.
@@ -176,6 +180,6 @@ func TestVerifyUser_Failure(t *testing.T) {
 	expected := strings.TrimSpace("Invalid email or code")
 
 	if actual != expected {
-		t.Errorf("handler returned unexpected body: got %v want %v", actual, expected)
+		t.Fatalf("handler returned unexpected body: got %v want %v", actual, expected)
 	}
 }

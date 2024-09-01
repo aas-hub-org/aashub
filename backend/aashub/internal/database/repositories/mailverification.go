@@ -38,3 +38,7 @@ func (e *EmailVerificationRepository) Verify(email string, verificationCode stri
 	}
 	return "", nil
 }
+
+func (e *EmailVerificationRepository) IsVerified(email string) (bool, error) {
+	return e.VerificationRepository.IsVerified(email)
+}
