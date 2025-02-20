@@ -1818,10 +1818,10 @@ unplugin-utils@^0.2.4:
     pathe "^2.0.2"
     picomatch "^4.0.2"
 
-unplugin-vue-components@^28.2.0:
-  version "28.2.0"
-  resolved "https://registry.yarnpkg.com/unplugin-vue-components/-/unplugin-vue-components-28.2.0.tgz#ebb2c9dfbbaed15b26b5f6f472f88515d30bb089"
-  integrity sha512-FMncMZRnOcVs81BligpZL4tPFHE+VX1P1SYgzzl4D6ZgLiJHoZWNx743z+Vfyz701GsZ8WX/ENvYrIZ4mvJPeA==
+unplugin-vue-components@^28.4.0:
+  version "28.4.0"
+  resolved "https://registry.yarnpkg.com/unplugin-vue-components/-/unplugin-vue-components-28.4.0.tgz#fbc5ff7605fea90aeb72d1090cf2e70fb2348876"
+  integrity sha512-fnamX2RiKM30nPK4tihEas+bHnbLICo6MmOiP4jGg7fAlgNEuaLvN9yx96JwZDOYfLQcrNzikDdPhZ8k6pkhMg==
   dependencies:
     chokidar "^3.6.0"
     debug "^4.4.0"
