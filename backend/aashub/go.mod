@@ -12,13 +12,15 @@ require (
 	github.com/stretchr/testify v1.10.0
 	github.com/swaggo/files v1.0.1
 	github.com/swaggo/gin-swagger v1.6.0
-	github.com/swaggo/swag v1.16.4
+	github.com/swaggo/swag v1.16.5
 )
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
+	golang.org/x/mod v0.20.0 // indirect
+	golang.org/x/sync v0.11.0 // indirect
 )
 
 require (
@@ -51,7 +53,7 @@ require (
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	golang.org/x/arch v0.12.0 // indirect
 	golang.org/x/crypto v0.33.0
-	golang.org/x/net v0.33.0 // indirect
+	golang.org/x/net v0.34.0 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
 	golang.org/x/tools v0.24.0 // indirect
