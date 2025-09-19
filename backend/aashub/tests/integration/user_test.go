@@ -9,6 +9,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"os"
 
 	"io"
 	"log"
@@ -37,15 +38,16 @@ func teardown(database *sql.DB) {
 
 	// Execute the query for the test username
 	if _, err := database.Exec(query, "testuser"); err != nil {
-		log.Fatalf("Failed to clean up test user: %v", err)
+		log.Printf("Failed to clean up test user: %v", err)
 	}
 }
 
 func TestRegisterUser(t *testing.T) {
+	os.Setenv("VERIFICATION_ENABLED", "true")
 	// Initialize the database connection
 	database, err := db.NewDB()
 	if err != nil {
-		log.Fatalf("Could not connect to the database: %v", err)
+		log.Printf("Could not connect to the database: %v", err)
 	}
 
 	// Ensure teardown is called no matter what happens in the test
@@ -121,12 +123,12 @@ func TestRegisterUser(t *testing.T) {
 
 			// Assert the status code
 			if resp.StatusCode != tc.expectedStatus {
-				t.Errorf("Expected status code %d, got %d", tc.expectedStatus, resp.StatusCode)
+				t.Fatalf("Expected status code %d, got %d", tc.expectedStatus, resp.StatusCode)
 			}
 
 			// Assert the response body if expected
 			if tc.expectedBody != "" && !strings.Contains(string(responseBody), tc.expectedBody) {
-				t.Errorf("Expected response body to contain %q, got %q", tc.expectedBody, string(responseBody))
+				t.Fatalf("Expected response body to contain %q, got %q", tc.expectedBody, string(responseBody))
 			}
 
 			// Call the verify user function
@@ -177,10 +179,10 @@ func verifyUser(t *testing.T, tc testCase, ts *httptest.Server, database *sql.DB
 
 		// Assert the verification status code and response body
 		if verifyResp.StatusCode != http.StatusOK {
-			t.Errorf("Expected verification status code %d, got %d", http.StatusOK, verifyResp.StatusCode)
+			t.Fatalf("Expected verification status code %d, got %d", http.StatusOK, verifyResp.StatusCode)
 		}
 		if !strings.Contains(string(verifyResponseBody), "User verified successfully") {
-			t.Errorf("Expected verification response body to contain %q, got %q", "User verified successfully", string(verifyResponseBody))
+			t.Fatalf("Expected verification response body to contain %q, got %q", "User verified successfully", string(verifyResponseBody))
 		}
 	}
 }
@@ -227,6 +229,6 @@ func TestLoginUser(t *testing.T) {
 
 	// Check the status code is what we expect
 	if status := rr.Code; status != http.StatusNoContent {
-		t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusNoContent)
+		t.Fatalf("handler returned wrong status code: got %v want %v", status, http.StatusNoContent)
 	}
 }
