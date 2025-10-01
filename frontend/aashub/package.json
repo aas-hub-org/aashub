@@ -31,7 +31,7 @@
         "pinia": "^3.0.3",
         "prettier": "^3.6.2",
         "sass": "1.93.2",
-        "typescript": "^5.9.2",
+        "typescript": "^5.9.3",
         "typescript-eslint": "^8.45.0",
         "unplugin-fonts": "^1.4.0",
         "unplugin-vue-components": "^29.0.0",
