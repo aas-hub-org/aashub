@@ -12,6 +12,7 @@ import (
 	docs "github.com/aas-hub-org/aashub/docs"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -46,12 +47,17 @@ func main() {
 	// Initialize database
 	database, err := database.NewDB()
 	if err != nil {
-		log.Fatalf("Could not connect to the database: %v", err)
+		log.Printf("Could not connect to the database: %v", err)
+	}
+
+	env_err := godotenv.Load("/workspace/backend/aashub/.env")
+	if env_err != nil {
+		log.Printf("Error loading .env file")
 	}
 
 	// Initialize repositories
 	verificationRepo := &repositories.VerificationRepository{DB: database}
-	mailVerificationRepo := &repositories.EmailVerificationRepository{VerificationRepository: verificationRepo}
+	mailVerificationRepo := &repositories.VerificationRepository{DB: database}
 	userRepo := &repositories.UserRepository{DB: database, VerificationRepository: mailVerificationRepo}
 
 	// Initialize handlers
