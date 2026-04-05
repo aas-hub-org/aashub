@@ -30,7 +30,7 @@
         "globals": "^17.4.0",
         "pinia": "^3.0.4",
         "prettier": "^3.8.1",
-        "sass": "1.98.0",
+        "sass": "1.99.0",
         "typescript": "^5.9.3",
         "typescript-eslint": "^8.58.0",
         "unplugin-fonts": "^1.4.0",
