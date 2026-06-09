@@ -28,7 +28,7 @@ func TestGenerateJWTAndValidate(t *testing.T) {
 	}
 
 	if !isValid {
-		t.Errorf("The token was expected to be valid")
+		t.Fatalf("The token was expected to be valid")
 	}
 }
 
@@ -56,7 +56,7 @@ func TestGenerateJWTAndValidateWithManipulatedPayload(t *testing.T) {
 	}
 
 	if !isValid {
-		t.Errorf("The token was expected to be valid")
+		t.Fatalf("The token was expected to be valid")
 	}
 
 	// Split token at .
