@@ -51,8 +51,12 @@ func (h *UserHandler) RegisterUser(w http.ResponseWriter, r *http.Request) {
 
 	err = h.Repo.RegisterUser(user.Username, user.Email, user.Password)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		switch err {
+		case repositories.ErrUserRepoEmailUsernameExists:
+			http.Error(w, "Email or username already exists", http.StatusBadRequest)
+		default:
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 	}
 
 	w.WriteHeader(http.StatusCreated)
@@ -131,12 +135,14 @@ func (h *UserHandler) LoginUser(w http.ResponseWriter, r *http.Request) {
 
 	token, err := h.Repo.LoginUser(identifier, password)
 	if err != nil {
-		if err == repositories.ErrUserRepoNotFound {
+		switch err {
+		case repositories.ErrUserRepoNotFound:
 			http.Error(w, "User not found", http.StatusNotFound)
-			return
+		case repositories.ErrUserRepoNotVerified:
+			http.Error(w, "User not verified", http.StatusForbidden)
+		default:
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
 	}
 
 	// Create a cookie

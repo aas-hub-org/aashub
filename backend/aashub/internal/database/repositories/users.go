@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"errors"
 	"log"
+	"os"
+	"strings"
 
 	auth "github.com/aas-hub-org/aashub/internal/auth"
 	interfaces "github.com/aas-hub-org/aashub/internal/interfaces"
@@ -14,6 +16,8 @@ import (
 )
 
 var ErrUserRepoNotFound = errors.New("identifier or password wrong")
+var ErrUserRepoNotVerified = errors.New("user not verified")
+var ErrUserRepoEmailUsernameExists = errors.New("email or username already exists")
 
 type UserRepository struct {
 	DB                     *sql.DB
@@ -39,20 +43,23 @@ func (repo *UserRepository) RegisterUser(username string, email string, password
 	userid := uuid.New().String()
 	hashedpassword, err := HashPassword(password)
 	if err != nil {
-		log.Fatalf("Error hashing password: %v", err)
+		log.Printf("Error hashing password: %v", err)
 		return err
 	}
 	_, err = repo.DB.Exec("INSERT INTO Users (id, username, email, password_hash) VALUES (?, ?, ?, ?)", userid, username, email, hashedpassword)
 
 	if err != nil {
-		log.Fatalf("Error inserting user: %v", err)
+		// Check if error includes "Duplicate"
+		if strings.Contains(err.Error(), "Duplicate") {
+			return ErrUserRepoEmailUsernameExists
+		}
 		return err
 	}
-
-	_, err = repo.VerificationRepository.CreateVerification(email)
-
+	if IsVerificationEnabled() {
+		_, err = repo.VerificationRepository.CreateVerification(email)
+	}
 	if err != nil {
-		log.Fatalf("Error inserting verification: %v", err)
+		log.Printf("Error inserting verification: %v", err)
 		return err
 	}
 
@@ -68,21 +75,41 @@ func (repo *UserRepository) LoginUser(identifier string, password string) (strin
 	if err != nil {
 		return "", ErrUserRepoNotFound
 	}
+	if IsVerificationEnabled() {
+		isVerified, err := repo.VerificationRepository.IsVerified(user.Email)
+		if err != nil {
+			log.Printf("Error checking verification: %v", err)
+			return "", err
+		}
+		if !isVerified {
+			return "", ErrUserRepoNotVerified
+		}
+	}
+
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
 		return "", ErrUserRepoNotFound
 	}
+
 	secret, fileReadError := utils.ReadFile("/workspace/backend/aashub/privatekey.txt")
 
 	if fileReadError != nil {
-		log.Fatalf("Error reading file: %v", fileReadError)
+		log.Printf("Error reading file: %v", fileReadError)
 		return "", fileReadError
 	}
 
 	jwt, err := auth.GenerateJWT(user.ID, secret)
 	if err != nil {
-		log.Fatalf("Error generating JWT: %v", err)
+		log.Printf("Error generating JWT: %v", err)
 		return "", err
 	}
 
 	return jwt, nil
+}
+
+func IsVerificationEnabled() bool {
+	enabled, found := os.LookupEnv("VERIFICATION_ENABLED")
+	if !found {
+		return false
+	}
+	return enabled == "true"
 }
