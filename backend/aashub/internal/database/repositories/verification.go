@@ -49,7 +49,7 @@ func (v *VerificationRepository) Verify(email string, verificationCode string) (
 	result, select_err := v.DB.Query("SELECT * FROM Verifications WHERE email = ? AND verification_code = ? AND verified = ?", email, verificationCode, false)
 
 	if select_err != nil {
-		log.Fatalf(select_err.Error())
+		log.Printf(select_err.Error())
 		return "system", select_err
 	}
 
@@ -61,9 +61,22 @@ func (v *VerificationRepository) Verify(email string, verificationCode string) (
 
 	_, err := v.DB.Exec("UPDATE Verifications SET verified = ? WHERE email = ? AND verification_code = ?", true, email, verificationCode)
 	if err != nil {
-		log.Fatalf(err.Error())
+		log.Printf(err.Error())
 		return "system", err
 	}
 
 	return "", nil
+}
+
+func (v *VerificationRepository) IsVerified(email string) (bool, error) {
+	result, select_err := v.DB.Query("SELECT * FROM Verifications WHERE email = ? && verified = false", email)
+
+	if select_err != nil {
+		log.Printf(select_err.Error())
+		return false, select_err
+	}
+
+	defer result.Close()
+
+	return !result.Next(), nil
 }
